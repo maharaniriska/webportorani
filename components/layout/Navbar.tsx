@@ -3,21 +3,28 @@
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { useI18n } from '../../lib/i18n';
 
 interface NavbarProps {
   heroName?: string;
 }
 
-const navLinks = [
-  { href: '#about',        label: 'Tentang Saya' },
-  { href: '#experience',   label: 'Pengalaman'   },
-  { href: '#skills',       label: 'Keahlian'     },
-  { href: '#portfolio',    label: 'Portofolio'   },
-  { href: '#testimonials', label: 'Testimoni'    },
-  { href: '#contact',      label: 'Kontak'       },
-];
+
+function getNavLinks(t: any) {
+  return [
+    { href: '#about',        label: t.nav.about },
+    { href: '#experience',   label: t.nav.experience },
+    { href: '#skills',       label: t.nav.skills },
+    { href: '#portfolio',    label: t.nav.portfolio },
+    { href: '#testimonials', label: t.nav.testimonials },
+    { href: '#contact',      label: t.nav.contact },
+  ];
+}
+
 
 export default function Navbar({ heroName }: NavbarProps) {
+  const { t, lang, setLang } = useI18n();
+  const navLinks = getNavLinks(t);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -46,6 +53,7 @@ export default function Navbar({ heroName }: NavbarProps) {
           <span className="text-gold">.</span>
         </a>
 
+
         {/* Desktop Links */}
         <ul className="hidden md:flex items-center gap-7">
           {navLinks.map((link) => (
@@ -61,7 +69,18 @@ export default function Navbar({ heroName }: NavbarProps) {
               </a>
             </li>
           ))}
+          {/* Language Switcher */}
+          <li>
+            <button
+              className={`px-3 py-1 rounded font-semibold border border-gold text-gold bg-white/10 hover:bg-gold hover:text-white transition-colors text-xs ml-2`}
+              onClick={() => setLang(lang === 'en' ? 'id' : 'en')}
+              aria-label="Switch language"
+            >
+              {lang === 'en' ? 'ID' : 'EN'}
+            </button>
+          </li>
         </ul>
+
 
         {/* Desktop CTA */}
         <a
@@ -72,7 +91,7 @@ export default function Navbar({ heroName }: NavbarProps) {
               : 'bg-white/15 text-white border border-white/30 hover:bg-white/25'
           }`}
         >
-          Hubungi Saya
+          {t.nav.hireMe}
         </a>
 
         {/* Mobile hamburger */}
@@ -109,8 +128,17 @@ export default function Navbar({ heroName }: NavbarProps) {
               className="block text-center bg-navy text-white font-semibold px-4 py-2.5 rounded-lg hover:bg-navy/90 transition-colors"
               onClick={() => setMenuOpen(false)}
             >
-              Hubungi Saya
+              {t.nav.hireMe}
             </a>
+          </li>
+          <li className="mt-2 flex justify-center">
+            <button
+              className="px-3 py-1 rounded font-semibold border border-gold text-gold bg-white/10 hover:bg-gold hover:text-white transition-colors text-xs"
+              onClick={() => setLang(lang === 'en' ? 'id' : 'en')}
+              aria-label="Switch language"
+            >
+              {lang === 'en' ? 'ID' : 'EN'}
+            </button>
           </li>
         </ul>
       </div>

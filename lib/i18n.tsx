@@ -1,3 +1,5 @@
+"use client";
+// This file must be a client component for Next.js context to work
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import en from '../locales/en';
 import id from '../locales/id';
