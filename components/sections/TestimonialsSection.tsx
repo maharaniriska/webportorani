@@ -1,3 +1,5 @@
+'use client';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuoteLeft, faCommentDots, faStar, faUser, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { TestimonialData } from '../../types';
@@ -43,32 +45,67 @@ export default function TestimonialsSection({ data }: Props) {
     setAutoPlay(false);
     setTimeout(() => setAutoPlay(true), 5000);
   };
+
   return (
     <section id="testimonials" className="relative overflow-hidden py-20 px-6">
-      {/* Decorative background */}
-      <div className="absolute top-0 right-0 w-96 h-96 rounded-3xl opacity-20 pointer-events-none animate-pulse-slow"
-        style={{ background: 'radial-gradient(circle, #f9c6d3, transparent)', filter: 'blur(100px)' }} />
-      <div className="absolute bottom-0 left-0 w-64 h-64 rounded-3xl opacity-20 pointer-events-none animate-pulse-slower"
-        style={{ background: 'radial-gradient(circle, #e0bbff, transparent)', filter: 'blur(80px)' }} />
+      {/* Background Decorative Elements (Matching Theme) */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Decorative blobs */}
+        <div className="absolute -top-20 right-0 w-72 h-72 rounded-xs opacity-20 animate-pulse-slow"
+          style={{ background: 'radial-gradient(circle, #f9c6d3, transparent)', filter: 'blur(70px)' }} />
+        <div className="absolute bottom-0 left-0 w-64 h-64 rounded-xs opacity-20 animate-pulse-slower"
+          style={{ background: 'radial-gradient(circle, #e0bbff, transparent)', filter: 'blur(60px)' }} />
+        <div className="absolute top-1/2 left-1/4 w-48 h-48 rounded-xs opacity-10 animate-pulse"
+          style={{ background: 'radial-gradient(circle, #fce7f3, transparent)', filter: 'blur(50px)', animationDelay: '1s' }} />
+        
+        {/* Decorative grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(190,24,93,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(190,24,93,0.02)_1px,transparent_1px)] bg-[size:48px_48px]"></div>
+        
+        {/* Floating geometric shapes */}
+        <div className="absolute top-40 left-20 w-20 h-20 border-2 border-pink-500/10 rounded-full animate-float"></div>
+        <div className="absolute bottom-32 right-16 w-16 h-16 border-2 border-purple-400/10 rotate-45 animate-float" style={{ animationDelay: '0.5s' }}></div>
+      </div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
         {/* Header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <span className="badge mb-4 bg-pink-100 text-pink-700 border-pink-200 animate-fade-in inline-flex items-center gap-2"> 
-            <FontAwesomeIcon icon={faStar} className="w-3 h-3" />
+        <div className="text-center mb-16 animate-fade-in relative">
+          {/* Badge styled to match new theme */}
+          <span className="badge mb-4 bg-pink-50 text-pink-600 border border-pink-100 shadow-sm animate-fade-in inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-bold uppercase tracking-wide text-xs"> 
+            <FontAwesomeIcon icon={faStar} className="w-3.5 h-3.5" />
             Testimoni
           </span>
-          <h2 className="section-title text-4xl md:text-5xl font-bold animate-fade-in delay-100 mb-4">Apa Kata Mereka</h2>
-          <p className="section-subtitle mx-auto text-center animate-fade-in delay-200 text-slate-600 max-w-2xl">
+
+          {/* Decorative quote marks */}
+          <div className="absolute -top-6 left-1/2 -translate-x-1/2 opacity-5 pointer-events-none">
+            <FontAwesomeIcon icon={faQuoteLeft} className="text-6xl text-purple-400" />
+          </div>
+
+          <h2 className="section-title text-4xl md:text-5xl font-bold animate-fade-in delay-100 mb-4 relative">
+            Apa Kata Mereka
+            {/* Decorative dots */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex gap-1">
+              <div className="w-1.5 h-1.5 rounded-full bg-purple-400/30"></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-pink-500/30"></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-purple-400/30"></div>
+            </div>
+          </h2>
+
+          <p className="section-subtitle mx-auto text-center animate-fade-in delay-200 text-slate-600 max-w-2xl mb-6">
             Kesan dari dosen pembimbing PKL, guru pamong, dan mantan siswa.
           </p>
-          <div className="w-16 h-1 rounded-full mx-auto mt-6 animate-fade-in delay-300" style={{background: 'linear-gradient(90deg, #be185d, #e0bbff)'}} />
+
+          <div className="w-16 h-1 rounded-xs mx-auto animate-fade-in delay-300 relative" 
+            style={{background: 'linear-gradient(90deg, #be185d, #e0bbff)'}}>
+            {/* Small accent circles on line */}
+            <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-pink-500"></div>
+            <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-purple-400"></div>
+          </div>
         </div>
 
         {data.length > 0 ? (
           <div className="max-w-4xl mx-auto">
             {/* Carousel Container */}
-            <div className="relative overflow-hidden rounded-xs">
+            <div className="relative overflow-hidden rounded-xs py-4 px-2">
               {/* Slides */}
               <div className="relative h-96 md:h-80">
                 {data.map((testimonial, index) => (
@@ -83,55 +120,72 @@ export default function TestimonialsSection({ data }: Props) {
                       pointerEvents: index === currentIndex ? 'auto' : 'none',
                     }}
                   >
-                    <div className="bg-white/95 border-2 border-pink-300 rounded-xs p-8 h-full flex flex-col justify-between hover:border-pink-400 transition-all duration-200 shadow-lg hover:shadow-xl">
-                      {/* Quote icon */}
+                    {/* Card Container (Matching Experience & Skills Theme) */}
+                    <div className="bg-white bg-opacity-90 border-2 border-pink-100/50 rounded-xs p-8 h-full flex flex-col justify-between shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 relative overflow-hidden group/card mx-auto max-w-3xl">
+                      
+                      {/* Left accent bar */}
+                      <div className="absolute -left-0.5 top-8 bottom-8 w-1 bg-gradient-to-b from-pink-500 to-purple-400 rounded-r-full opacity-70 group-hover/card:opacity-100 transition-opacity"></div>
+
+                      {/* Corner accent */}
+                      <div className="absolute top-0 right-0 w-12 h-12 overflow-hidden">
+                        <div className="absolute top-0 right-0 w-full h-full bg-pink-50 opacity-50 transform rotate-45 translate-x-1/2 -translate-y-1/2 group-hover/card:bg-purple-50 transition-colors"></div>
+                      </div>
+
+                      {/* Hover sparkle effect */}
+                      <div className="absolute -top-1 -right-1 w-2 h-2 bg-pink-400 rounded-full opacity-0 group-hover/card:opacity-100 transition-opacity"></div>
+
                       <div>
-                        <div className="w-10 h-10 rounded-xs bg-pink-200 flex items-center justify-center mb-4">
-                          <FontAwesomeIcon icon={faQuoteLeft} className="w-4 h-4 text-pink-700" />
+                        {/* Quote icon & Stars Header */}
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="w-10 h-10 rounded-xs bg-pink-50 border border-pink-100 flex items-center justify-center group-hover/card:scale-110 transition-transform duration-300">
+                            <FontAwesomeIcon icon={faQuoteLeft} className="w-4 h-4 text-pink-500" />
+                          </div>
+                          
+                          <div className="flex gap-1 mt-2">
+                            {Array.from({ length: 5 }).map((_, i) => (
+                              <FontAwesomeIcon key={i} icon={faStar} className="w-3.5 h-3.5 text-yellow-400" />
+                            ))}
+                          </div>
                         </div>
 
-                        {/* Stars */}
-                        <div className="flex gap-1 mb-4">
-                          {Array.from({ length: 5 }).map((_, i) => (
-                            <FontAwesomeIcon key={i} icon={faStar} className="w-4 h-4 text-yellow-400" />
-                          ))}
-                        </div>
-
-                        <p className="text-slate-700 text-base leading-relaxed italic line-clamp-3">
+                        {/* Content */}
+                        <p className="text-slate-700 text-base md:text-lg leading-relaxed italic line-clamp-3 md:line-clamp-4 relative z-10 pl-2 border-l-2 border-transparent group-hover/card:border-pink-200 transition-colors">
                           &ldquo;{testimonial.content}&rdquo;
                         </p>
                       </div>
 
-                      {/* Author */}
-                      <div className="flex items-center gap-3 pt-4 border-t border-pink-200 mt-4">
-                        <div className="w-12 h-12 rounded-xs bg-pink-100 flex items-center justify-center overflow-hidden shrink-0">
+                      {/* Author Info */}
+                      <div className="flex items-center gap-4 pt-5 border-t border-pink-100 mt-4 relative">
+                        <div className="w-12 h-12 rounded-xs bg-pink-50 flex items-center justify-center overflow-hidden shrink-0 border border-pink-100 group-hover/card:border-pink-300 transition-colors">
                           {testimonial.photo_url ? (
-                              <img src={resolveUrl(testimonial.photo_url)} alt={testimonial.name} className="w-full h-full object-cover" />
+                              <img src={resolveUrl(testimonial.photo_url)} alt={testimonial.name} className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-300" />
                             ) : (
                             <FontAwesomeIcon icon={faUser} className="w-5 h-5 text-pink-300" />
                           )}
                         </div>
                         <div>
-                          <p className="text-slate-800 font-semibold text-sm leading-tight">{testimonial.name}</p>
+                          <p className="text-slate-800 font-bold text-sm md:text-base leading-tight group-hover/card:text-pink-600 transition-colors">{testimonial.name}</p>
                           {testimonial.role && (
-                            <p className="text-slate-600 text-xs mt-0.5 font-medium">{testimonial.role}</p>
+                            <p className="text-pink-500 text-xs mt-0.5 font-medium">{testimonial.role}</p>
                           )}
                         </div>
                       </div>
                     </div>
+
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Navigation Arrows (Below Carousel) */}
-            <div className="flex justify-center items-center gap-4 mt-8">
+            {/* Navigation Arrows & Dots */}
+            <div className="flex justify-center items-center gap-6 mt-6">
+              {/* Previous Button */}
               <button
                 onClick={goToPrevious}
-                className="bg-slate-900 hover:bg-slate-800 text-white p-2.5 rounded-xs transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="bg-white text-pink-500 border-2 border-pink-100 hover:border-pink-300 hover:bg-pink-50 hover:text-pink-600 p-2.5 rounded-full transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-x-1 focus:outline-none"
                 aria-label="Previous testimonial"
               >
-                <FontAwesomeIcon icon={faChevronLeft} className="w-5 h-5" />
+                <FontAwesomeIcon icon={faChevronLeft} className="w-4 h-4 pr-0.5" />
               </button>
 
               {/* Dots Navigation */}
@@ -140,34 +194,35 @@ export default function TestimonialsSection({ data }: Props) {
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    className={`h-2.5 rounded-full transition-all duration-300 focus:outline-none ${
                       index === currentIndex
-                        ? 'bg-pink-500 w-8'
-                        : 'bg-slate-400 hover:bg-slate-500'
+                        ? 'w-8 bg-gradient-to-r from-pink-500 to-purple-400 shadow-sm'
+                        : 'w-2.5 bg-pink-200 hover:bg-pink-300'
                     }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
                 ))}
               </div>
 
+              {/* Next Button */}
               <button
                 onClick={goToNext}
-                className="bg-slate-900 hover:bg-slate-800 text-white p-2.5 rounded-xs transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="bg-white text-pink-500 border-2 border-pink-100 hover:border-pink-300 hover:bg-pink-50 hover:text-pink-600 p-2.5 rounded-full transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1 focus:outline-none"
                 aria-label="Next testimonial"
               >
-                <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5" />
+                <FontAwesomeIcon icon={faChevronRight} className="w-4 h-4 pl-0.5" />
               </button>
             </div>
 
             {/* Slide Counter */}
-            <p className="text-center mt-4 text-slate-600 text-sm font-medium">
+            <p className="text-center mt-4 text-slate-400 text-xs font-semibold tracking-widest">
               {currentIndex + 1} / {data.length}
             </p>
           </div>
         ) : (
-          <div className="text-center py-20 text-pink-300/60">
-            <FontAwesomeIcon icon={faCommentDots} className="w-14 h-14 mx-auto mb-4" />
-            <p className="text-lg font-medium">Belum ada testimoni.</p>
+          <div className="text-center py-16 bg-white/50 backdrop-blur-sm rounded-xs border-2 border-dashed border-pink-200 max-w-3xl mx-auto">
+            <FontAwesomeIcon icon={faCommentDots} className="w-12 h-12 mx-auto mb-4 text-pink-300 opacity-50" />
+            <p className="text-lg text-slate-500 font-medium">Belum ada testimoni.</p>
           </div>
         )}
       </div>

@@ -3,16 +3,17 @@ import { faDownload, faUser, faArrowRight, faQuoteLeft } from '@fortawesome/free
 import { HeroData } from '../../types';
 import Button from '../ui/Button';
 import { resolveUrl } from '../../lib/api';
+import Image from 'next/image';
 
 interface Props {
   data: HeroData | null;
 }
 
-const STATS = [
-  { num: '3+', label: 'Tahun Pengalaman' },
-  { num: '50+', label: 'Siswa Terdampak' },
-  { num: '10+', label: 'Proyek Edukasi' },
-];
+// const STATS = [
+//   { num: '3+', label: 'Tahun Pengalaman' },
+//   { num: '50+', label: 'Siswa Terdampak' },
+//   { num: '10+', label: 'Proyek Edukasi' },
+// ];
 
 export default function HeroSection({ data }: Props) {
   const name        = data?.name        || 'Nama Anda';
@@ -58,7 +59,7 @@ export default function HeroSection({ data }: Props) {
               {/* PHOTO */}
               <div className="mt-20 md:mt-0 relative w-[320px] h-[400px] shape-blob overflow-hidden shadow-2xl animate-float border border-white/30 backdrop-blur-lg z-10">
                 {photoUrl ? (
-                  <img src={photoUrl} className="w-full h-full object-cover" alt="Profile" />
+                  <Image src={photoUrl} alt="Profile" width={320} height={400} className="w-full h-full object-cover" />
                 ) : (
                   <div className="flex items-center justify-center w-full h-full bg-slate-100">
                     <FontAwesomeIcon icon={faUser} className="text-5xl text-slate-300" />
@@ -116,7 +117,7 @@ export default function HeroSection({ data }: Props) {
               </div>
 
               {/* Stats section */}
-              <div className="flex flex-wrap justify-center lg:justify-start gap-8 pt-8 border-t border-slate-200 w-full">
+              {/* <div className="flex flex-wrap justify-center lg:justify-start gap-8 pt-8 border-t border-slate-200 w-full">
                 {STATS.map((stat, idx) => (
                   <div key={idx} className="text-center lg:text-left group">
                     <div className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent group-hover:scale-110 transition-transform">
@@ -125,7 +126,7 @@ export default function HeroSection({ data }: Props) {
                     <div className="text-sm text-slate-500 mt-1">{stat.label}</div>
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
             
           </div>
