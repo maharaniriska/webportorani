@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://apiportomaharani.pythonanywhere.com').replace(/\/+$/g, '');
   try {
     const res = await fetch(`${API_URL}/api/hero`, { next: { revalidate: 60 } });
-    if (!res.ok) return metadata;
+    if (!res.ok) return defaultMetadata;
     const hero = await res.json();
     const img = hero?.photo_url ? resolveUrl(hero.photo_url) : '/favicon.svg';
 
