@@ -2,13 +2,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faUser, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { HeroData } from '../../types';
 import Button from '../ui/Button';
+import { resolveUrl } from '../../lib/api';
 
 interface Props {
   data: HeroData | null;
 }
 
-const getFullUrl = (url: string) =>
-  url?.startsWith('/api/uploads/') ? 'http://localhost:5000' + url : url;
 
 const STATS = [
   { num: '3+', label: 'Tahun Pengalaman' },
@@ -20,8 +19,8 @@ export default function HeroSection({ data }: Props) {
   const name        = data?.name        || 'Nama Anda';
   const headline    = data?.headline    || 'English Educator & Curriculum Specialist';
   const subheadline = data?.subheadline || 'Membantu siswa menguasai bahasa Inggris dengan metode pembelajaran yang adaptif dan kurikulum yang inovatif.';
-  const photoUrl    = getFullUrl(data?.photo_url || '');
-  const cvUrl       = getFullUrl(data?.cv_url    || '');
+  const photoUrl = resolveUrl(data?.photo_url || '');
+  const cvUrl = resolveUrl(data?.cv_url || '');
 
   return (
     <>

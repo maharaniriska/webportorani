@@ -1,5 +1,10 @@
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+export const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || 'https://apiportomaharani.pythonanywhere.com';
+
+export function resolveUrl(url?: string | null): string {
+  if (!url) return '';
+  return url.startsWith('/api/uploads/') ? `${API_URL}${url}` : url;
+}
 
 function getToken(): string | null {
   if (typeof window === 'undefined') return null;
