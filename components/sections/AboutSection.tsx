@@ -2,6 +2,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGraduationCap, faLocationDot, faLanguage, faCircleCheck, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AboutData } from '../../types';
+import { resolveUrl } from '../../lib/api';
 
 interface Props {
   data: AboutData | null;
@@ -12,13 +13,11 @@ const infoCards = [
   { icon: faLocationDot,   label: 'Lokasi',       value: 'Tuban, East Java',          color: 'text-purple-400',   bg: 'bg-purple-50'  },
 ];
 
-// Helper agar preview file/gambar/file selalu benar ke backend
-const getFullUrl = (url: string) =>
-  url?.startsWith('/api/uploads/') ? 'http://localhost:5000' + url : url;
+// Use `resolveUrl` to normalize stored upload URLs (handles localhost -> production)
 
 export default function AboutSection({ data }: Props) {
   const content   = data?.content   || '';
-  const photoUrl  = getFullUrl(data?.photo_url || '');
+  const photoUrl  = resolveUrl(data?.photo_url || '');
   const paragraphs = content.split('\n\n').filter(Boolean);
 
   return (

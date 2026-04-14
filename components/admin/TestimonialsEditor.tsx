@@ -1,7 +1,6 @@
 "use client";
-// Helper agar preview file/gambar selalu benar ke backend
-const getFullUrl = (url: string) =>
-  url?.startsWith('/api/uploads/') ? 'http://localhost:5000' + url : url;
+// Use central resolver for uploads
+import { resolveUrl } from '../../lib/api';
 
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -166,7 +165,7 @@ export default function TestimonialsEditor() {
               }}
             />
             {form.photo_url && (
-              <img src={getFullUrl(form.photo_url)} alt="Preview" className="mt-2 h-20 w-20 rounded-full object-cover border" />
+              <img src={resolveUrl(form.photo_url)} alt="Preview" className="mt-2 h-20 w-20 rounded-full object-cover border" />
             )}
           </div>
 

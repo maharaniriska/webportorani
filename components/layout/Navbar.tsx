@@ -6,7 +6,7 @@ import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useI18n } from '../../lib/i18n';
 import Button from '../ui/Button';
 import { HeroData } from '../../types';
-import { api } from '../../lib/api';
+import { api, resolveUrl } from '../../lib/api';
 
 
 interface NavbarProps {
@@ -39,14 +39,13 @@ function getNavLinks(t: TranslationKeys) {
 }
 
 export default function Navbar({ heroName, heroData }: NavbarProps) {
-  const getFullUrl = (url: string) =>
-  url?.startsWith('/api/uploads/') ? 'http://localhost:5000' + url : url;
+  // Use resolveUrl to normalize upload URLs (handles localhost -> production)
   const { t } = useI18n();
   const navLinks = getNavLinks(t);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
-  const photoUrl    = getFullUrl(heroData?.photo_url || '');
+  const photoUrl    = resolveUrl(heroData?.photo_url || '');
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);

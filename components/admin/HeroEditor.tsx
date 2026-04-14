@@ -1,7 +1,6 @@
 "use client";
-// Helper agar preview file/gambar selalu benar ke backend
-const getFullUrl = (url: string) =>
-  url?.startsWith('/api/uploads/') ? 'http://localhost:5000' + url : url;
+// Use central resolver for uploads
+import { resolveUrl } from '../../lib/api';
 
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -108,7 +107,7 @@ export default function HeroEditor({ onSaved }: Props) {
           }}
         />
         {data.photo_url && (
-          <img src={getFullUrl(data.photo_url)} alt="Preview"
+          <img src={resolveUrl(data.photo_url)} alt="Preview"
             className="mt-2 w-24 h-24 rounded-full object-cover border-2 border-pink-300" />
         )}
       </div>
@@ -139,7 +138,7 @@ export default function HeroEditor({ onSaved }: Props) {
           }}
         />
         {data.cv_url && (
-          <a href={getFullUrl(data.cv_url)} target="_blank" rel="noopener noreferrer" className="block mt-2 text-sm text-blue-600 underline">Lihat CV</a>
+          <a href={resolveUrl(data.cv_url)} target="_blank" rel="noopener noreferrer" className="block mt-2 text-sm text-blue-600 underline">Lihat CV</a>
         )}
       </div>
 

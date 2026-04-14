@@ -1,9 +1,7 @@
 
-'use client';
-// Helper agar preview file/gambar/file selalu benar ke backend
-const getFullUrl = (url: string) =>
-  url?.startsWith('/api/uploads/') ? 'http://localhost:5000' + url : url;
-
+"use client";
+// Use central resolver for upload URLs
+import { resolveUrl } from '../../lib/api';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -99,7 +97,7 @@ export default function PortfolioSection({ data }: Props) {
                   <div className="h-44 bg-gradient-to-br from-pink-100/60 to-purple-100/40 rounded-xs mb-4 flex items-center justify-center relative overflow-hidden">
                     {item.thumbnail_url ? (
                       <img
-                        src={getFullUrl(item.thumbnail_url)}
+                        src={resolveUrl(item.thumbnail_url)}
                         alt={item.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
@@ -133,7 +131,7 @@ export default function PortfolioSection({ data }: Props) {
 
                   {item.url && (
                     <a
-                      href={getFullUrl(item.url)}
+                      href={resolveUrl(item.url)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-pink-900 font-semibold text-sm
