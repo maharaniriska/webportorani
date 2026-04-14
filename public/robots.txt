@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://maharanirizka.vercel.app/sitemap.xml
+
+# Host directive (optional)
+Host: https://maharanirizka.vercel.app
