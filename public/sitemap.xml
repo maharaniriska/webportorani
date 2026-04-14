@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://maharanirizka.vercel.app/</loc>
+    <lastmod>2026-04-15T00:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://maharanirizka.vercel.app/about</loc>
+    <lastmod>2026-04-15T00:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://maharanirizka.vercel.app/portfolio</loc>
+    <lastmod>2026-04-15T00:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://maharanirizka.vercel.app/contact</loc>
+    <lastmod>2026-04-15T00:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+</urlset>
