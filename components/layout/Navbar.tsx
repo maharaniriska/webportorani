@@ -6,13 +6,12 @@ import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useI18n } from '../../lib/i18n';
 import Button from '../ui/Button';
 import { HeroData } from '../../types';
-import { api, resolveUrl } from '../../lib/api';
-
+import { resolveUrl } from '../../lib/api';
+import Image from 'next/image';
 
 interface NavbarProps {
   heroName?: string;
   heroData?: HeroData;
-
 }
 
 interface TranslationKeys {
@@ -68,7 +67,7 @@ export default function Navbar({ heroName, heroData }: NavbarProps) {
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, []);
+  }, [navLinks]); // Ditambahkan dependensi agar aman jika navLinks berubah
 
   useEffect(() => {
     const handleResize = () => {
@@ -78,17 +77,18 @@ export default function Navbar({ heroName, heroData }: NavbarProps) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-const firstTwoWords = heroName ? heroName.split(' ').slice(0, 2).join(' ') : 'Portfolio';
+  const firstTwoWords = heroName ? heroName.split(' ').slice(0, 2).join(' ') : 'Portfolio';
+  
   return (
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
           scrolled
-            ? 'bg-gradient-to-b from-white/99 to-white/95 backdrop-blur-xl shadow-[0_4px_20px_rgba(190,24,93,0.08)]'
-            : 'backdrop-blur-sm'
+            ? 'bg-white/95 backdrop-blur-xl shadow-[0_4px_20px_rgba(190,24,93,0.08)]'
+            : 'bg-transparent backdrop-blur-sm'
         }`}
       >
-        <div className={`max-w-6xl mx-auto flex items-center justify-between px-6  transition-all ${
+        <div className={`max-w-6xl mx-auto flex items-center justify-between px-6 transition-all duration-300 ${
           scrolled ? 'py-3' : 'py-5'
         }`}>
 
@@ -100,8 +100,7 @@ const firstTwoWords = heroName ? heroName.split(' ').slice(0, 2).join(' ') : 'Po
           >
             <div className="relative h-9 w-9 scale-100 overflow-hidden rounded-full ring-1 ring-red-800/60 transition-all duration-300 group-hover:scale-105 group-hover:ring-red-500/80">
               {photoUrl ? (
-                // Use plain img to avoid requiring next/image remote config for localhost backend
-                <img src={photoUrl} alt={`${firstTwoWords}`} className="w-full h-full object-cover" />
+                <Image src={photoUrl} alt={`${firstTwoWords}`} width={36} height={36} className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full bg-pink-100 text-pink-700 flex items-center justify-center font-bold">
                   {firstTwoWords.split(' ').map((s) => s[0]).filter(Boolean).join('')}
@@ -109,9 +108,8 @@ const firstTwoWords = heroName ? heroName.split(' ').slice(0, 2).join(' ') : 'Po
               )}
             </div>
             <span
-              className={`text-xl font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent font-black`}
+              className={`text-xl font-black bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent transition-all duration-300`}
             >
-              <span className=""></span>
               {firstTwoWords}
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-pink-500 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -125,14 +123,14 @@ const firstTwoWords = heroName ? heroName.split(' ').slice(0, 2).join(' ') : 'Po
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className={`relative px-4 py-1 text-sm font-semibold rounded-xs transition-all duration-200 flex items-center gap-2 ${
+                    className={`relative px-4 py-1.5 text-sm rounded-xs transition-all duration-200 flex items-center gap-2 ${
                       scrolled
                         ? isActive
                           ? 'text-pink-600 font-bold'
-                          : 'text-slate-700 hover:text-pink-600'
+                          : 'text-slate-700 hover:text-pink-600 font-semibold'
                         : isActive
-                        ? 'text-pink-600 bg-white/20 font-bold backdrop-blur-sm'
-                        : 'text-slate-700 hover:text-pink-600'
+                        ? 'text-pink-600 bg-white/20 font-bold backdrop-blur-sm shadow-sm'
+                        : 'text-slate-700 hover:text-pink-600 font-semibold'
                     }`}
                   >
                     {isActive && (
@@ -149,7 +147,7 @@ const firstTwoWords = heroName ? heroName.split(' ').slice(0, 2).join(' ') : 'Po
           <div className="hidden md:flex items-center gap-3">
             <a
               href="#contact"
-              className="group relative inline-flex items-center gap-2 text-sm font-bold px-3 py-1 rounded-sm transition-all duration-300 overflow-hidden shadow-lg hover:shadow-xl hover:-translate-y-0.5 bg-gradient-to-r from-pink-600 to-rose-500 text-white hover:from-pink-700 hover:to-rose-600 hover:scale-105"
+              className="group relative inline-flex items-center gap-2 text-sm font-bold px-4 py-1.5 rounded-sm transition-all duration-300 overflow-hidden shadow-lg hover:shadow-xl hover:-translate-y-0.5 bg-gradient-to-r from-pink-600 to-rose-500 text-white hover:from-pink-700 hover:to-rose-600 hover:scale-105"
             >
               <span className="relative z-10">{t.nav.hireMe}</span>
             </a>
@@ -180,7 +178,7 @@ const firstTwoWords = heroName ? heroName.split(' ').slice(0, 2).join(' ') : 'Po
             menuOpen ? 'max-h-[420px] opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
-          <div className="bg-white backdrop-blur-xl border-t border-pink-100 px-4 pt-4 pb-5 shadow-xl">
+          <div className="bg-white/95 backdrop-blur-xl border-t border-pink-100 px-4 pt-4 pb-5 shadow-xl">
             <ul className="flex flex-col gap-0.5 mb-3">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href.replace('#', '');
@@ -188,10 +186,10 @@ const firstTwoWords = heroName ? heroName.split(' ').slice(0, 2).join(' ') : 'Po
                   <li key={link.href}>
                     <a
                       href={link.href}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-xs text-sm font-semibold transition-all duration-150 ${
+                      className={`flex items-center gap-3 px-4 py-3 rounded-xs text-sm transition-all duration-150 ${
                         isActive
                           ? 'text-white bg-gradient-to-r from-pink-600 to-rose-500 font-bold shadow-md'
-                          : 'text-slate-700 hover:text-pink-600 hover:bg-pink-50'
+                          : 'text-slate-700 hover:text-pink-600 hover:bg-pink-50 font-semibold'
                       }`}
                       onClick={() => setMenuOpen(false)}
                     >
@@ -204,11 +202,10 @@ const firstTwoWords = heroName ? heroName.split(' ').slice(0, 2).join(' ') : 'Po
             </ul>
             <a
               href="#contact"
-              className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-pink-600 to-rose-500 text-white font-semibold text-sm px-4 py-3 rounded-xs hover:from-pink-700 hover:to-rose-600 transition-all shadow-lg hover:shadow-xl active:scale-95"
+              className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-pink-600 to-rose-500 text-white font-bold text-sm px-4 py-3 rounded-xs hover:from-pink-700 hover:to-rose-600 transition-all shadow-lg hover:shadow-xl active:scale-95"
               onClick={() => setMenuOpen(false)}
             >
               {t.nav.hireMe}
-
             </a>
           </div>
         </div>
@@ -217,7 +214,7 @@ const firstTwoWords = heroName ? heroName.split(' ').slice(0, 2).join(' ') : 'Po
       {/* Mobile menu backdrop */}
       {menuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/20 md:hidden backdrop-blur-sm"
+          className="fixed inset-0 z-40 bg-black/20 md:hidden backdrop-blur-sm transition-opacity duration-300"
           onClick={() => setMenuOpen(false)}
           aria-hidden="true"
         />
