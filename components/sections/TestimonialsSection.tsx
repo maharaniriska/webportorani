@@ -2,8 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuoteLeft, faCommentDots, faStar, faUser, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { TestimonialData } from '../../types';
 import { useState, useEffect } from 'react';
-
-const getFullUrl = (url: string) => url?.startsWith('/api/uploads/') ? 'http://localhost:5000' + url : url;
+import { resolveUrl } from '../../lib/api';
 
 interface Props {
   data: TestimonialData[];
@@ -107,7 +106,7 @@ export default function TestimonialsSection({ data }: Props) {
                       <div className="flex items-center gap-3 pt-4 border-t border-pink-200 mt-4">
                         <div className="w-12 h-12 rounded-xs bg-pink-100 flex items-center justify-center overflow-hidden shrink-0">
                           {testimonial.photo_url ? (
-                              <img src={getFullUrl(testimonial.photo_url)} alt={testimonial.name} className="w-full h-full object-cover" />
+                              <img src={resolveUrl(testimonial.photo_url)} alt={testimonial.name} className="w-full h-full object-cover" />
                             ) : (
                             <FontAwesomeIcon icon={faUser} className="w-5 h-5 text-pink-300" />
                           )}

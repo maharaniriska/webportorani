@@ -1,7 +1,6 @@
 "use client";
-// Helper agar preview file/gambar selalu benar ke backend
-const getFullUrl = (url: string) =>
-  url?.startsWith('/api/uploads/') ? 'http://localhost:5000' + url : url;
+// Use central resolver for uploads
+import { resolveUrl } from '../../lib/api';
 
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -177,11 +176,11 @@ export default function PortfolioEditor() {
               }}
             />
             {form.url && (form.type === 'image' ? (
-              <img src={getFullUrl(form.url)} alt="Preview" className="mt-2 h-24 rounded-xs object-cover border" />
+              <img src={resolveUrl(form.url)} alt="Preview" className="mt-2 h-24 rounded-xs object-cover border" />
             ) : form.type === 'video' ? (
-              <video src={getFullUrl(form.url)} controls className="mt-2 h-24 rounded-xs border" />
+              <video src={resolveUrl(form.url)} controls className="mt-2 h-24 rounded-xs border" />
             ) : (
-              <a href={getFullUrl(form.url)} target="_blank" rel="noopener noreferrer" className="block mt-2 text-blue-600 underline">Lihat File</a>
+              <a href={resolveUrl(form.url)} target="_blank" rel="noopener noreferrer" className="block mt-2 text-blue-600 underline">Lihat File</a>
             ))}
           </div>
 
@@ -211,7 +210,7 @@ export default function PortfolioEditor() {
               }}
             />
             {form.thumbnail_url && (
-              <img src={getFullUrl(form.thumbnail_url)} alt="Preview"
+              <img src={resolveUrl(form.thumbnail_url)} alt="Preview"
                 className="mt-2 h-24 rounded-xs object-cover border" />
             )}
           </div>

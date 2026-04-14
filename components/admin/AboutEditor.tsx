@@ -1,7 +1,6 @@
 "use client";
-// Helper agar preview file/gambar selalu benar ke backend
-const getFullUrl = (url: string) =>
-  url?.startsWith('/api/uploads/') ? 'http://localhost:5000' + url : url;
+// Use central resolver for uploads (keeps preview consistent across envs)
+import { resolveUrl } from '../../lib/api';
 
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -88,7 +87,7 @@ export default function AboutEditor() {
           }}
         />
         {data.photo_url && (
-          <img src={getFullUrl(data.photo_url)} alt="Preview"
+          <img src={resolveUrl(data.photo_url)} alt="Preview"
             className="mt-2 w-28 h-32 rounded-xs object-cover border-2 border-gray-200" />
         )}
       </div>
